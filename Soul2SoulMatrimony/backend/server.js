@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const path = require("path");
 const connectDB = require("./config/db");
 const { protect } = require("./middlewares/authMiddleware");
 
@@ -23,7 +24,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: process.env.ORIGIN,
+    origin: "*",
     credentials: true,
   })
 );
@@ -36,6 +37,14 @@ app.use("/api/profiles", protect, profileRoutes); // Protected routes
 app.use("/api/employees", protect, employeeRoutes); // Protected routes
 app.use("/api/dashboard", protect, dashboardRoutes);
 
+// Serve React build files
+const buildPath = path.join(__dirname, "../frontend", "dist"); // Adjust "client" to your React app's folder name
+app.use(express.static(buildPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
+
 // Error handling
 app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
@@ -43,4 +52,6 @@ app.use((err, req, res, next) => {
 
 // Start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, "0.0.0.0", () =>
+  console.log(`Server running on http://0.0.0.0:${PORT}`)
+);
