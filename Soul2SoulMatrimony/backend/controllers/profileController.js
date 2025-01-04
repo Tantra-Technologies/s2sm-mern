@@ -3,6 +3,30 @@ const Profile = require("../models/Profile");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+// Get profile by ID
+const getProfileById = async (req, res) => {
+  try {
+    const { id } = req.params; // Extract the profile ID from route parameters
+
+    // Fetch the profile from the database
+    const profile = await Profile.findById(id).populate(
+      "createdBy",
+      "name email"
+    );
+
+    // If profile not found, return 404
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    // Send the profile data
+    res.status(200).json(profile);
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const createProfile = async (req, res) => {
   try {
     // Extract token from Authorization header
@@ -228,4 +252,5 @@ module.exports = {
   getLatestProfiles,
   getDashboardStats,
   getAdminDashboardStats,
+  getProfileById,
 };
