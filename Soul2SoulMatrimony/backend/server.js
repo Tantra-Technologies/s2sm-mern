@@ -38,12 +38,12 @@ app.use("/api/employees", protect, employeeRoutes); // Protected routes
 app.use("/api/dashboard", protect, dashboardRoutes);
 
 // Serve React build files
-// const buildPath = path.join(__dirname, "../frontend", "dist"); // Adjust "client" to your React app's folder name
-// app.use(express.static(buildPath));
+const buildPath = path.join(__dirname, "../frontend", "dist"); // Adjust "client" to your React app's folder name
+app.use(express.static(buildPath));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(buildPath, "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
 
 // // Error handling
 // app.use((err, req, res, next) => {
@@ -52,7 +52,7 @@ app.use("/api/dashboard", protect, dashboardRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
-// app.listen(PORT, "0.0.0.0", () =>
-//   console.log(`Server running on http://0.0.0.0:${PORT}`)
-// );
-app.listen(PORT, () => console.log(`Server running on http://0.0.0.0:${PORT}`));
+app.listen(PORT, "0.0.0.0", () =>
+  console.log(`Server running on http://0.0.0.0:${PORT}`)
+);
+// app.listen(PORT, () => console.log(`Server running on http://0.0.0.0:${PORT}`));
