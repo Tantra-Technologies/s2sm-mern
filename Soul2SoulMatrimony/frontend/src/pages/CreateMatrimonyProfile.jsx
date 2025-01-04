@@ -9,9 +9,14 @@ import {
   Typography,
   Box,
   Grid,
+  Divider,
 } from "@mui/material";
 import Layout from "../layouts/Layout";
 import axios from "../utils/axiosConfig";
+import { TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from "dayjs";
 
 // Steps for the stepper
 const steps = [
@@ -20,6 +25,7 @@ const steps = [
   "Professional Details",
   "Family Details",
   "Lifestyle Details",
+  "Preview",
 ];
 
 // Dropdown options
@@ -114,7 +120,239 @@ const CreateMatrimonyProfile = () => {
     }));
   };
 
+  const renderPreview = () => (
+    <Box>
+      <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
+        Preview Details
+      </Typography>
+      <Divider sx={{ mb: 3 }} />
+  
+      {/* Step 1: Basic Information */}
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h6" fontWeight="bold" color="primary">
+            Basic Information
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>First Name:</strong> {profileData.firstName}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Middle Name:</strong> {profileData.middleName || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Last Name:</strong> {profileData.lastName}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Gender:</strong> {profileData.gender}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Age:</strong> {profileData.age}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Mobile Number:</strong> {profileData.mobileNumber}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Email:</strong> {profileData.email || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            <strong>Address:</strong> {`${profileData.contactAddress}, ${profileData.city}, ${profileData.state}, ${profileData.country}`}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Divider sx={{ my: 3 }} />
+  
+      {/* Step 2: Personal Details */}
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h6" fontWeight="bold" color="primary">
+            Personal Details
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Mother Tongue:</strong> {profileData.motherTongue}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Religion:</strong> {profileData.religion}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Caste:</strong> {profileData.caste}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Sub-Caste:</strong> {profileData.subCaste || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Gotra:</strong> {profileData.gotra || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Mangalik:</strong> {profileData.mangalik}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Date of Birth:</strong> {profileData.dateOfBirth || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Time of Birth:</strong> {profileData.timeOfBirth || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Place of Birth:</strong> {profileData.placeOfBirth || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Complexion:</strong> {profileData.complexion}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Divider sx={{ my: 3 }} />
+  
+      {/* Step 3: Professional Details */}
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h6" fontWeight="bold" color="primary">
+            Professional Details
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Highest Degree:</strong> {profileData.highestDegree}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Company Name:</strong> {profileData.companyName || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Employed In:</strong> {profileData.employedIn}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Annual Income:</strong> {profileData.annualIncome}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Divider sx={{ my: 3 }} />
+  
+      {/* Step 4: Family Details */}
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h6" fontWeight="bold" color="primary">
+            Family Details
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Father's Name:</strong> {profileData.fatherName}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Father's Occupation:</strong> {profileData.fatherOccupation}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Mother's Name:</strong> {profileData.motherName}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Mother's Occupation:</strong> {profileData.motherOccupation || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Family Type:</strong> {profileData.familyType}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            <strong>Native Place:</strong> {profileData.nativePlace}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Divider sx={{ my: 3 }} />
+  
+      {/* Step 5: Lifestyle Details */}
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h6" fontWeight="bold" color="primary">
+            Lifestyle Details
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Diet:</strong> {profileData.diet}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Smoke:</strong> {profileData.smoke}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography>
+            <strong>Drink:</strong> {profileData.drink}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            <strong>Hobbies:</strong> {profileData.hobbies?.join(", ") || "Not specified"}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>
+            <strong>Interests:</strong> {profileData.interests?.join(", ") || "Not specified"}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+
+
+
+
+
+  
+
   const renderStepContent = (step) => {
+    if(step === steps.length - 1){
+       return renderPreview();
+    }
     switch (step) {
       case 0: // Personal Details
         return (
@@ -394,14 +632,28 @@ const CreateMatrimonyProfile = () => {
           </Grid>
 
           {/* Time of Birth */}
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <TextField
               label="Time of Birth"
               fullWidth
               value={profileData.timeOfBirth}
               onChange={(e) => handleChange("timeOfBirth", e.target.value)}
             />
-          </Grid>
+          </Grid> */}
+
+          <Grid item xs={12} md={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                label="Time of Birth"
+                value={profileData.timeOfBirth ? dayjs(profileData.timeOfBirth, "HH:mm") : null} // Convert string to dayjs object if present
+                onChange={(newValue) => {
+                  const formattedTime = newValue?.format("HH:mm"); // Format the time as "HH:mm"
+                  handleChange("timeOfBirth", formattedTime); // Save the formatted time as a string
+                }}
+                renderInput={(params) => <TextField {...params} fullWidth />}
+              />
+            </LocalizationProvider>
+          </Grid>;
 
           {/* Place of Birth */}
           <Grid item xs={12} md={6}>

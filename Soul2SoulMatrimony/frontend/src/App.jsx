@@ -13,8 +13,11 @@ import ForgotPasswordScreen from "./pages/ForgotPasswordScreen";
 import AdminNotifications from "./pages/admin/AdminNotifications";
 import AdminSearchProfile from "./pages/admin/AdminSearchProfile";
 import AdminEmployeeManagement from "./pages/admin/AdminEmployeeManagement";
+import ViewProfileScreen from "./pages/ViewProfileScreen";
 
 const App = () => {
+
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -83,6 +86,11 @@ const App = () => {
                   <SearchMatrimonyProfile/>
                 </ProtectedRoute>
               }
+            />
+
+            <Route
+              path="/profiles/view/:id"
+              element={<ProtectedRoute allowedRoles={["employee", "admin"]}><ViewProfileScreen /></ProtectedRoute>}
             />
 
 

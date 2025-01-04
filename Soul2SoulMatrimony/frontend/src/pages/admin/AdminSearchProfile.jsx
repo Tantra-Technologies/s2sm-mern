@@ -184,20 +184,14 @@ const AdminSearchProfile = () => {
 
                 {/* Action Buttons */}
                 <Box>
-                  <Button
-                    variant="outlined"
-                    sx={{ mr: 1 }}
-                    onClick={() => handleExport(profile._id)}
-                  >
-                    Export
-                  </Button>
+                  
                   <Button
                     variant="contained"
                     sx={{
                       backgroundColor: "red",
                       "&:hover": { backgroundColor: "#b71c1c" },
                     }}
-                    onClick={() => navigate(`/profiles/${profile._id}`)}
+                    onClick={() => navigate(`/profiles/view/${profile._id}`)}
                   >
                     View
                   </Button>

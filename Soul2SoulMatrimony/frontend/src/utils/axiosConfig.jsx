@@ -4,7 +4,7 @@ const process = import.meta.env;
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: `http://${process.HOST_URL}/api`, // Replace with your API base URL
+  baseURL: `http://localhost:4000/api`, // Replace with your API base URL
   headers: {
     "Content-Type": "application/json",
   },

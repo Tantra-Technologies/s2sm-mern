@@ -54,10 +54,6 @@ const SearchMatrimonyProfile = () => {
     setFilteredProfiles(filtered);
   };
 
-  // Export profile functionality (placeholder for now)
-  const handleExport = (profileId) => {
-    alert(`Exporting profile with ID: ${profileId}`);
-  };
 
   return (
     <Layout pageTitle="Matrimony Profiles">
@@ -136,20 +132,20 @@ const SearchMatrimonyProfile = () => {
 
                 {/* Action Buttons */}
                 <Box>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     sx={{ mr: 1 }}
-                    onClick={() => handleExport(profile._id)}
+                    onClick={() => navigate(`/profiles/view/${profile._id}`)}
                   >
                     Export
-                  </Button>
+                  </Button> */}
                   <Button
                     variant="contained"
                     sx={{
                       backgroundColor: "red",
                       "&:hover": { backgroundColor: "#b71c1c" },
                     }}
-                    onClick={() => navigate(`/profiles/${profile._id}`)}
+                    onClick={() => navigate(`/profiles/view/${profile._id}`)}
                   >
                     View
                   </Button>
